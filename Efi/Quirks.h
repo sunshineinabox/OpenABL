@@ -25,8 +25,10 @@
 // Clears S18R at every ACMD41 site in firmware code outside this image (at
 // most 16), and on SM8650 and SM8750 sets XPC there too. With S18R clear, 
 // the builds that would then ask a card for the slot's UHS speed ask for 
-// high speed instead. Every build gives a card one second to power up; that 
-// becomes four seconds. Then signals card detection again, and puts the second back.
+// high speed instead. Every build gives a card one second to power up; that
+// becomes four seconds. Then signals card detection again; if that finds no
+// card, puts the driver's own speed choice back and detects once more (some
+// cards are found only at the default speed). Then puts the second back.
 // The OABL_SDCC_* builds patch more SdccDxe words, and the G2 Gen 2 also gets
 // its SD command line pull-up. With OABL_SD_DIAGNOSTICS the SD slot is logged
 // before and after. Returns the number of S18R sites patched.
